@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Partner Jobs | הצעד הבא שלכם מתחיל כאן</title>
+  <meta name="description" content="רוצים להתחיל קריירה בפרטנר? בחרו משרה פתוחה, השאירו פרטים ונחזור אליכם." />
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WKKRWLTH');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root{
+      --partner:#2ccbc0;
+      --partner-2:#22beb5;
+      --yellow:#ffe300;
+      --ink:#050909;
+      --muted:#405755;
+      --white:#fff;
+      --soft:#edfffd;
+      --line:#d8f0ee;
+      --shadow:0 24px 70px rgba(0,0,0,.16);
+      --radius:30px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Assistant,Arial,sans-serif;background:#f4fffe;color:var(--ink);overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1160px,calc(100% - 32px));margin-inline:auto}
+    .topbar{position:absolute;top:0;inset-inline:0;z-index:20;padding:22px 0;direction:ltr}
+    .logo-img{display:block;width:165px;max-width:42vw;height:auto}
+
+    .hero{position:relative;min-height:790px;padding:96px 0 128px;background:linear-gradient(135deg,#2bcac0 0%,#28c7bd 48%,#36d5ca 100%);overflow:hidden}
+    .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 12% 18%,rgba(255,255,255,.22),transparent 25%),radial-gradient(circle at 84% 72%,rgba(255,255,255,.18),transparent 28%);pointer-events:none}
+    .hero:after{content:"";position:absolute;right:-12vw;top:-24vh;width:55vw;height:55vw;border-radius:999px;background:rgba(255,255,255,.11);filter:blur(2px)}
+    .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:.92fr 1.08fr;gap:34px;align-items:center}
+    .hero-copy{padding-top:26px}
+    .label{display:inline-flex;align-items:center;gap:10px;background:#050505;color:#fff;border-radius:999px;padding:9px 16px;margin-bottom:20px;font-size:22px;font-weight:900;letter-spacing:-.2px}
+    .label:before{content:"";width:10px;height:10px;background:var(--yellow);border-radius:50%}
+    h1{margin:0;color:#fff;font-weight:900;letter-spacing:-4px;line-height:.92;font-size:clamp(52px,8.2vw,112px)}
+    .headline-mark{display:block;color:#071111;text-shadow:none}
+    .subtitle{max-width:650px;margin:24px 0 0;font-size:clamp(24px,3vw,38px);font-weight:900;line-height:1.1;color:#071111}
+    .lead{max-width:570px;margin:16px 0 28px;color:#143734;font-size:22px;font-weight:800;line-height:1.35}
+    .hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:26px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:58px;border-radius:999px;padding:14px 30px;background:var(--yellow);color:#050505;font:900 22px Assistant,Arial,sans-serif;border:0;box-shadow:0 10px 0 rgba(0,0,0,.14);cursor:pointer;transition:.18s ease;white-space:nowrap}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 0 rgba(0,0,0,.16)}
+    .ghost{background:#fff;box-shadow:none;font-size:18px;min-height:50px}
+
+    .visual{position:relative;min-height:500px;display:flex;align-items:flex-end;justify-content:center;overflow:visible;padding-inline:10px}
+    .banner{position:absolute;left:50%;bottom:-6px;width:min(118%,690px);height:auto;max-width:none;transform:translateX(-50%);filter:drop-shadow(0 24px 34px rgba(0,0,0,.16));border-radius:0}
+    .visual-card{position:absolute;right:2%;top:9%;width:62%;background:rgba(255,255,255,.9);border-radius:28px;padding:22px 24px;box-shadow:0 18px 45px rgba(0,0,0,.13);backdrop-filter:blur(10px);direction:rtl}
+    .visual-card strong{display:block;font-size:30px;font-weight:900;line-height:1;color:#061212}
+    .visual-card span{display:block;margin-top:7px;color:#37514f;font-size:18px;font-weight:800;line-height:1.25}
+    .doodle{position:absolute;z-index:3;pointer-events:none;opacity:.95}
+    .d-paper{left:5%;top:25%;width:105px;height:55px;border:5px solid #fff;border-left:0;border-bottom:0;transform:skew(-28deg) rotate(-8deg)}
+    .d-paper:after{content:"";position:absolute;right:-8px;top:-7px;width:58px;height:5px;background:#fff;transform:rotate(32deg);transform-origin:right center}
+    .d-star{right:3%;bottom:18%;font-size:52px;font-weight:900;color:#050505;transform:rotate(-18deg)}
+
+    .form-zone{position:relative;z-index:7;margin-top:-42px;padding-bottom:24px}
+    .form-card{display:grid;grid-template-columns:.84fr 1.16fr;gap:24px;background:#fff;border-radius:34px;padding:28px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05)}
+    .form-intro{border-radius:26px;background:linear-gradient(135deg,#ecfffc,#fff);padding:24px;border:1px solid #dcf4f1}
+    .form-intro h2,.section-title{margin:0 0 14px;font-size:clamp(34px,4vw,56px);font-weight:900;letter-spacing:-1.4px;line-height:.98}
+    .form-intro p{margin:0;color:var(--muted);font-size:20px;font-weight:800;line-height:1.35}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.chip{background:#071111;color:#fff;border-radius:999px;padding:8px 13px;font-weight:900;font-size:15px}.chip.yellow{background:var(--yellow);color:#000}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start}
+    .field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}
+    label{font-weight:900;font-size:16px;color:#10201f}
+    input,select{width:100%;border:2px solid var(--line);border-radius:17px;padding:15px 14px;font:800 18px Assistant,Arial,sans-serif;background:#fbffff;color:#071111;outline:none;transition:.16s ease}
+    input:focus,select:focus{border-color:#19a99e;box-shadow:0 0 0 4px rgba(47,202,187,.18)}
+    .jobs-status{display:none!important}.phone-helper{font-size:13px;color:#60716f;font-weight:800;margin-top:-2px}
+    .consent{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.35;color:#3f5553;direction:rtl;font-weight:700}.consent input{width:auto;margin-top:4px}.consent a{text-decoration:underline;font-weight:900}
+    .submit-row{grid-column:1/-1;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.submit-row .btn{width:100%}.note{font-size:14px;color:#627370;font-weight:800;margin:0}
+    .error,.success{display:none;grid-column:1/-1;border-radius:15px;padding:12px 14px;font-weight:900}.error{background:#fff1f1;color:#8a1111}.success{background:#effff5;color:#126a35}
+
+    section{padding:72px 0}.benefits{background:#f4fffe}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}.card{background:#fff;border-radius:25px;padding:24px;box-shadow:0 10px 28px rgba(0,0,0,.07);border:1px solid #e8f8f6}.icon{font-size:34px}.card h3{font-size:25px;margin:12px 0 8px;font-weight:900}.card p{font-size:18px;line-height:1.35;color:var(--muted);font-weight:750;margin:0}
+    .steps{background:#071111;color:#fff}.steps .section-title{color:#fff}.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}.step{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);border-radius:25px;padding:24px}.num{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--yellow);color:#000;font-weight:900;font-size:24px}.step h3{font-size:26px;margin:16px 0 8px}.step p{font-size:18px;line-height:1.35;color:#d7eeee;font-weight:750;margin:0}
+    .final-cta{background:linear-gradient(135deg,var(--partner),#26d7c8);text-align:center}.final-cta p{font-size:23px;font-weight:850;margin:0 auto 24px;max-width:720px;color:#08211f}.footer{background:#071111;color:#dff;padding:30px 0;text-align:center}.footer .logo-img{margin:0 auto 16px}.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:16px;font-weight:850;margin:12px 0}.footer a{text-decoration:underline;text-underline-offset:4px}.agency{color:#a9c9c7;font-weight:750}.agency a{color:#fff}
+
+    @media(max-width:980px){.hero{padding-bottom:128px}.hero-grid,.form-card{grid-template-columns:1fr}.visual{order:-1;min-height:360px;overflow:visible}.banner{left:50%;right:auto;bottom:-4px;width:min(112%,690px);transform:translateX(-50%)}.visual-card{top:0;right:50%;transform:translateX(50%);width:min(420px,76%)}.form-zone{margin-top:-52px}.cards,.steps-grid{grid-template-columns:1fr 1fr}h1{letter-spacing:-2px}}
+    @media(max-width:640px){.container{width:min(100% - 24px,1160px)}.topbar{padding-top:18px}.logo-img{width:138px}.hero{padding-top:78px;padding-bottom:108px}.label{font-size:17px}.hero-copy{padding-top:0;text-align:center}.hero-actions{justify-content:center;margin-bottom:18px}h1{font-size:58px}.subtitle{font-size:26px}.lead{font-size:19px}.visual{min-height:292px;margin:18px auto 8px;width:100%;padding-inline:0}.banner{width:min(112%,520px);left:50%;right:auto;bottom:0;transform:translateX(-50%)}.visual-card{display:none}.d-paper{display:none}.d-star{font-size:40px;right:auto;left:8%;bottom:14%}.btn{font-size:19px;width:100%;min-height:56px}.ghost{width:auto}.form-zone{margin-top:-34px}.form-card{padding:16px;border-radius:24px}form{grid-template-columns:1fr}.cards,.steps-grid{grid-template-columns:1fr}section{padding:54px 0}.footer .logo-img{width:140px}}
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKKRWLTH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header class="topbar"><div class="container"><img class="logo-img" src="assets/partner-logo.png" alt="Partner" /></div></header>
+
+  <main>
+    <section class="hero">
+      <span class="doodle d-paper" aria-hidden="true"></span><span class="doodle d-star" aria-hidden="true">✦</span>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="label">Hello my Future</span>
+          <h1>מחפשים את<br><span class="headline-mark">הצעד הבא?</span></h1>
+          <p class="subtitle">בואו לעבוד בפרטנר ולהתחיל תפקיד עם אנשים, אנרגיה ואפשרות אמיתית להתקדם.</p>
+          <p class="lead">בחרו את המשרה שמתאימה לכם, השאירו פרטים ונחזור אליכם עם כל מה שצריך לדעת על התהליך.</p>
+          <div class="hero-actions"><a class="btn" href="#lead">להגשת מועמדות</a><a class="btn ghost" href="#why">מה מחכה לכם?</a></div>
+        </div>
+        <div class="visual" aria-label="Partner Hello my Future">
+          <div class="visual-card"><strong>We are Partners</strong><span>העתיד שלכם יכול להתחיל בשיחה אחת קצרה.</span></div>
+          <img class="banner" src="assets/partner-hero.png" alt="Hello my Future - Partner" />
+        </div>
+      </div>
+    </section>
+
+    <div class="form-zone" id="lead">
+      <div class="container">
+        <div class="form-card">
+          <div class="form-intro">
+            <h2>בחרו משרה.<br>אנחנו כבר נדבר.</h2>
+            <p>טופס קצר, בלי קורות חיים בשלב הזה. רק פרטים בסיסיים כדי שנוכל לבדוק התאמה ולחזור אליכם.</p>
+            <div class="chips"><span class="chip yellow">משרות פתוחות</span><span class="chip">שירות ומכירות</span><span class="chip">מוקדי Partner</span><span class="chip">קריירה עם אופק</span></div>
+          </div>
+          <form id="leadForm" novalidate>
+            <div class="field"><label for="fullName">שם מלא</label><input id="fullName" name="full_name" type="text" autocomplete="name" required placeholder="לדוגמה: דניאל כהן" /></div>
+            <div class="field"><label for="phone">טלפון</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="050-0000000" /><span class="phone-helper">מספר נייד ישראלי בלבד</span></div>
+            <div class="field"><label for="city">עיר</label><input id="city" name="city" type="text" autocomplete="address-level2" required placeholder="לדוגמה: תל אביב" /></div>
+            <div class="field"><label for="jobSelect">בחרו משרה</label><select id="jobSelect" name="job" required><option value="">טוען משרות פתוחות...</option></select><span class="jobs-status" id="jobsStatus" aria-live="polite"></span></div>
+            <label class="consent"><input id="consent" type="checkbox" required /> <span>אני מאשר/ת יצירת קשר בנוגע למשרה, בהתאם ל<a href="https://www.partner.co.il/u/privacy_policy" target="_blank" rel="noopener">מדיניות הפרטיות</a>.</span></label>
+            <div class="error" id="formError"></div><div class="success" id="formSuccess">הפרטים נשלחו בהצלחה. מעבירים אותך לעמוד הבא...</div>
+            <div class="submit-row"><button class="btn" id="submitBtn" type="submit">שלחו לי פרטים</button><p class="note">המידע נשלח לפרטנר ונשמר בצורה מסודרת לטיפול בפנייה.</p></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <section class="benefits" id="why"><div class="container"><h2 class="section-title">למה להתחיל דווקא בפרטנר?</h2><div class="cards"><article class="card"><div class="icon">🎓</div><h3>הכשרה מלאה</h3><p>לא צריך להגיע מומחים. מקבלים כלים, ליווי וידע כדי להתחיל נכון.</p></article><article class="card"><div class="icon">🚀</div><h3>אופק קידום</h3><p>מקום טוב להתחיל בו, ללמוד, להתפתח ולפתוח דלתות להמשך הקריירה.</p></article><article class="card"><div class="icon">🤝</div><h3>אנשים טובים</h3><p>סביבת עבודה צעירה, צוותית ודינמית. כן, זה באמת משנה ביום־יום.</p></article><article class="card"><div class="icon">💛</div><h3>תנאים למתאימים</h3><p>תפקידים עם יעדים, בונוסים ואפשרות אמיתית לגדול יחד עם החברה.</p></article></div></div></section>
+
+    <section class="steps"><div class="container"><h2 class="section-title">איך זה עובד?</h2><div class="steps-grid"><article class="step"><div class="num">1</div><h3>משאירים פרטים</h3><p>שם, טלפון והמשרה שמעניינת אתכם. קצר. בלי טופס באורך עבודת סמינר.</p></article><article class="step"><div class="num">2</div><h3>בודקים התאמה</h3><p>הצוות עובר על הפרטים ומבין איזו משרה יכולה להתאים לכם.</p></article><article class="step"><div class="num">3</div><h3>מתקדמים לשיחה</h3><p>אם יש התאמה, חוזרים אליכם עם פרטים על התפקיד והמשך התהליך.</p></article></div></div></section>
+
+    <section class="final-cta"><div class="container"><h2 class="section-title">אז... מה הצעד הבא שלכם?</h2><p>בחרו את אחת המשרות הפתוחות והשאירו פרטים. אולי זאת תהיה ההתחלה של משהו הרבה יותר גדול.</p><a class="btn" href="#lead">להגשת מועמדות עכשיו</a></div></section>
+  </main>
+
+  <footer class="footer"><div class="container"><img class="logo-img" src="assets/partner-logo-white.png" alt="Partner" /><div class="footer-links"><a href="https://www.partner.co.il/he-il/general/terms-of-use/" target="_blank" rel="noopener">תנאי שימוש</a><a href="https://www.partner.co.il/u/privacy_policy" target="_blank" rel="noopener">מדיניות פרטיות</a><a href="https://www.partner.co.il/u/accessibility" target="_blank" rel="noopener">הצהרת נגישות</a></div><p class="agency">עוצב ופותח על ידי <a href="https://youngmedia.co.il" target="_blank" rel="noopener">Young Media</a></p></div></footer>
+
+  <script>
+    const SUPABASE_URL = 'https://yiuastakbcntxbanhvgn.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_ZRl5LzsV7HiyCeNolg9Oqw_Fte8UrA7';
+    const WEBHOOK_URL = 'https://hook.us1.make.com/49thwmh6vuttcbtq14szh4m1hlrxd58t';
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const fallbackJobs = [
+      { id:'fallback-bs', title:'שירות ומכירות', location:'באר שבע', sort_order:1 },
+      { id:'fallback-rosh', title:'שירות ומכירות', location:'ראש העין', sort_order:2 },
+      { id:'fallback-haifa', title:'שירות ומכירות', location:'חיפה', sort_order:3 }
+    ];
+    const TRACKING_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','ttclid','wbraid','gbraid'];
+    function captureTracking(){const params=new URLSearchParams(location.search);const saved=JSON.parse(sessionStorage.getItem('partner_tracking')||'{}');TRACKING_KEYS.forEach(k=>{if(params.get(k)) saved[k]=params.get(k)});sessionStorage.setItem('partner_tracking',JSON.stringify(saved));return saved}
+    const tracking = captureTracking();
+    function jobLabel(job){return [job.title, job.location].filter(Boolean).join(' - ')}
+    async function loadJobs(){const select=document.getElementById('jobSelect');let jobs=[];try{const {data,error}=await sb.from('jobs').select('id,title,location,sort_order,is_active').eq('is_active',true).order('sort_order',{ascending:true});if(error) throw error;jobs=(data&&data.length)?data:fallbackJobs;}catch(err){console.warn('Jobs fallback',err);jobs=fallbackJobs;}select.innerHTML='<option value="">בחרו משרה מהרשימה</option>'+jobs.map(j=>`<option value="${j.id}" data-title="${jobLabel(j)}">${jobLabel(j)}</option>`).join('')}
+    function showError(msg){const el=document.getElementById('formError');el.textContent=msg;el.style.display='block'}
+    function hideError(){document.getElementById('formError').style.display='none'}
+    function validPhone(phone){const cleaned=String(phone).replace(/[\s\-()]/g,'');return /^(?:05\d{8}|(?:\+972|972)5\d{8})$/.test(cleaned)}
+    function normalizePhone(phone){let cleaned=String(phone).replace(/[\s\-()]/g,'');if(cleaned.startsWith('+972')) return '0'+cleaned.slice(4);if(cleaned.startsWith('972')) return '0'+cleaned.slice(3);return cleaned}
+    document.getElementById('leadForm').addEventListener('submit',async(e)=>{e.preventDefault();hideError();const btn=document.getElementById('submitBtn');const fullName=document.getElementById('fullName').value.trim();const phoneRaw=document.getElementById('phone').value.trim();const phone=normalizePhone(phoneRaw);const city=document.getElementById('city').value.trim();const jobSelect=document.getElementById('jobSelect');const jobId=jobSelect.value;const jobTitle=jobSelect.options[jobSelect.selectedIndex]?.dataset?.title||jobSelect.options[jobSelect.selectedIndex]?.text||'';const consent=document.getElementById('consent').checked;if(fullName.length<2)return showError('צריך שם מלא כדי שנדע למי לחזור.');if(!validPhone(phoneRaw))return showError('מספר הטלפון חייב להיות מספר נייד ישראלי תקין.');if(city.length<2)return showError('צריך להזין עיר.');if(!jobId)return showError('בחרו משרה מהרשימה.');if(!consent)return showError('צריך לאשר יצירת קשר כדי לשלוח את הפרטים.');btn.disabled=true;btn.textContent='שולחים...';const payload={source:'partner-jobs-landing',full_name:fullName,phone,city,job_id:jobId,job_title:jobTitle,consent,tracking,page_url:location.href,user_agent:navigator.userAgent,timestamp:new Date().toISOString()};try{await sb.from('leads').insert({full_name:fullName,phone,city,job_id:jobId,job_title:jobTitle,consent,tracking,page_url:location.href,user_agent:navigator.userAgent,source:'partner-jobs-landing'});}catch(err){console.warn('Supabase lead insert failed',err)}try{await fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true});}catch(err){console.warn('Webhook failed',err)}window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'lead_submit',job_title:jobTitle,city});document.getElementById('formSuccess').style.display='block';const qs=new URLSearchParams({...tracking,name:fullName,phone,city,job:jobTitle});setTimeout(()=>location.href='thankyou.html?'+qs.toString(),500)});
+    loadJobs();
+  </script>
+</body>
+</html>
